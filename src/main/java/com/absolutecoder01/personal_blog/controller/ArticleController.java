@@ -5,11 +5,11 @@ import com.absolutecoder01.personal_blog.service.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/homepage")
 public class ArticleController {
 
     private final ArticleService service;
@@ -19,7 +19,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<Article> getAllArticles() {
+    public List<Article> getAllArticles() throws IOException {
         return service.getAllArticles();
     }
 
@@ -44,5 +44,7 @@ public class ArticleController {
     void deleteArticle(@PathVariable UUID id) {
         service.deleteArticle(id);
     }
+
+
 
 }

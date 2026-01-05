@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -40,8 +40,17 @@ hover: slate-500
 -->
 <body class="bg-stone-100">
     <div class="">
-        <div id="title_block">
+        <div id="title-block">
             <h1>Personal Blog</h1>
+            <table>
+                <tr th:each="article : ${articles}">
+                    <td><a th:href="@{/${article.id}}" th:text="${article.title}"></td>
+                    <td th:text="${article.createdAt}"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="blog-content">
+
         </div>
 
         <!-- List of articles ... ${article.list_of_articles}-->

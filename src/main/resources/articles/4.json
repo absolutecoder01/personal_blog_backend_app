@@ -1,0 +1,8 @@
+[{
+  "id": 4,
+  "title": "Thymeleaf - silnik szablonów dla Spring Boot",
+  "content": "Poznaj Thymeleaf - najpopularniejszy silnik szablonów w ekosystemie Spring. Uczę jak tworzyć dynamiczne strony HTML z danymi z kontrolerów i wyświetlać listy obiektów w tabelach.",
+  "createdAt": "2026-01-04",
+  "updatedAt": "2026-01-04",
+  "author": "admin"
+}]

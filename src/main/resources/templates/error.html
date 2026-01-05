@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Error</title>
+</head>
+<body>
+<h1>Oops! Something went wrong</h1>
+<p>Status: <span th:text="${status}">Unknown</span></p>
+<p>Error: <span th:text="${error}">No error</span></p>
+<p>Path: <span th:text="${path}">No path</span></p>
+<p>Message: <span th:text="${message}">No message</span></p>
+<a href="/">Go Home</a>
+</body>
+</html>

@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Mój pierwszy wpis",
+    "content": "Witaj na moim blogu! To jest mój pierwszy wpis, w którym opisuję, dlaczego zdecydowałem się pisać bloga o programowaniu i technologii.",
+    "createdAt": "2026-01-01",
+    "updatedAt": "2026-01-01",
+    "author": "admin"
+  },
+  {
+    "id": 2,
+    "title": "Jak uczyć się Javy od zera",
+    "content": "W tym wpisie dzielę się moimi doświadczeniami z nauką Javy od podstaw. Omawiam najważniejsze koncepcje, które każdy początkujący powinien znać: zmienne, klasy, obiekty, pętle i instrukcje warunkowe.",
+    "createdAt": "2026-01-02",
+    "updatedAt": "2026-01-02",
+    "author": "admin"
+  },
+  {
+    "id": 3,
+    "title": "Tworzenie prostego bloga w Spring Boot",
+    "content": "W tym artykule pokazuję jak zacząć budować bloga w Spring Boot. Wyjaśniam strukturę projektu, warstwy MVC, tworzenie kontrolerów, widoków i przechowywanie danych w plikach JSON.",
+    "createdAt": "2026-01-03",
+    "updatedAt": "2026-01-03",
+    "author": "admin"
+  },
+  {
+    "id": 4,
+    "title": "Thymeleaf - silnik szablonów dla Spring Boot",
+    "content": "Poznaj Thymeleaf - najpopularniejszy silnik szablonów w ekosystemie Spring. Uczę jak tworzyć dynamiczne strony HTML z danymi z kontrolerów i wyświetlać listy obiektów w tabelach.",
+    "createdAt": "2026-01-04",
+    "updatedAt": "2026-01-04",
+    "author": "admin"
+  },
+  {
+    "id": 5,
+    "title": "Jackson ObjectMapper - praca z JSON w Javie",
+    "content": "Kompletny przewodnik po Jackson ObjectMapper. Jak deserializować JSON do obiektów Java, obsługiwać daty, niestandardowe formaty i rozwiązywać najczęstsze błędy deserializacji.",
+    "createdAt": "2026-01-05",
+    "updatedAt": "2026-01-05",
+    "author": "admin"
+  },
+  {
+    "id": 6,
+    "title": "Spring Boot @Value i classpath resources",
+    "content": "Jak używać adnotacji @Value do wstrzykiwania ścieżek do plików JSON z classpath. Omawiam różnice między classpath: a file:, obsługę Resource i błędy ścieżek.",
+    "createdAt": "2026-01-06",
+    "updatedAt": "2026-01-06",
+    "author": "admin"
+  },
+  {
+    "id": 7,
+    "title": "Struktura projektu Spring Boot blog",
+    "content": "Pokazuję idealną strukturę katalogów dla projektu bloga: controller, service, domain, templates, static. Wyjaśniam gdzie umieszczać HTML, CSS, JSON i klasy Java.",
+    "createdAt": "2026-01-07",
+    "updatedAt": "2026-01-07",
+    "author": "admin"
+  },
+  {
+    "id": 8,
+    "title": "Obsługa wyjątków w Spring Boot kontrolerach",
+    "content": "Jak poprawnie obsługiwać IOException, DateTimeParseException i inne błędy w kontrolerach Spring Boot. Try-catch vs @ExceptionHandler vs @ControllerAdvice - porównanie podejść.",
+    "createdAt": "2026-01-08",
+    "updatedAt": "2026-01-08",
+    "author": "admin"
+  },
+  {
+    "id": 9,
+    "title": "LocalDate vs LocalDateTime w Jackson",
+    "content": "Rozwiązywanie problemów z deserializacją dat w Jackson. @JsonFormat, JavaTimeModule, custom deserializery i konfiguracja globalna ObjectMapper dla dat bez czasu.",
+    "createdAt": "2026-01-09",
+    "updatedAt": "2026-01-09",
+    "author": "admin"
+  },
+  {
+    "id": 10,
+    "title": "Dependency Injection w Spring Boot",
+    "content": "Kompletne wyjaśnienie wstrzykiwania zależności: @Autowired, konstruktory, @Service, @Repository, @Component. Najlepsze praktyki i różnice między polami a konstruktorami.",
+    "createdAt": "2026-01-10",
+    "updatedAt": "2026-01-10",
+    "author": "admin"
+  }
+]
