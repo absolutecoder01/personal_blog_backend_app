@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Glass UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .glass-container {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+    
+    .glass-item {
+      background: rgba(59, 130, 246, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-item:hover {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateX(4px);
+      box-shadow: 
+        0 4px 16px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .glass-item.active {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.15));
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 
+        0 0 20px rgba(59, 130, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    
+    .content-transition {
+      animation: contentFade 0.4s ease-in-out;
+    }
+    
+    @keyframes contentFade {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .tag-pill {
+      background: rgba(59, 130, 246, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.2s ease;
+    }
+    
+    .tag-pill:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .divider-line {
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(59, 130, 246, 0.3) 50%, 
+        transparent);
+    }
+    
+    .text-glow {
+      text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    
+    .glass-input {
+      background: rgba(59, 130, 246, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: #bfdbfe;
+      transition: all 0.3s ease;
+    }
+    
+    .glass-input:focus {
+      outline: none;
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    }
+    
+    .glass-input::placeholder {
+      color: rgba(191, 219, 254, 0.4);
+    }
+    
+    .glass-button {
+      background: rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .glass-button:hover {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .glass-button:active {
+      transform: translateY(0);
+    }
+    
+    .glass-button.danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    
+    .glass-button.danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+    }
+    
+    .glass-button.secondary {
+      background: rgba(100, 116, 139, 0.15);
+      border-color: rgba(100, 116, 139, 0.3);
+    }
+    
+    .glass-button.secondary:hover {
+      background: rgba(100, 116, 139, 0.25);
+      border-color: rgba(100, 116, 139, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="flex min-h-screen p-8 gap-6">
+    <!-- Sidebar -->
+    <aside class="w-72 glass-container rounded-2xl p-6 h-fit sticky top-8">
+      <div class="relative">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold text-blue-100">Articles</h2>
+          <button id="addNewBtn" class="glass-button px-3 py-1.5 rounded-lg text-blue-100 text-sm font-medium">
+            + New
+          </button>
+        </div>
+        <ul class="space-y-2" id="articleList">
+          <li class="article-item glass-item active rounded-lg p-3 cursor-pointer" data-id="1">
+            <span class="text-blue-100 text-sm font-medium">Wpis 1</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="2">
+            <span class="text-blue-100 text-sm font-medium">Wpis 2</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="3">
+            <span class="text-blue-100 text-sm font-medium">Wpis 3</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="4">
+            <span class="text-blue-100 text-sm font-medium">Wpis 4</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="5">
+            <span class="text-blue-100 text-sm font-medium">Wpis 5</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="6">
+            <span class="text-blue-100 text-sm font-medium">Wpis 6</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="7">
+            <span class="text-blue-100 text-sm font-medium">Wpis 7</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="8">
+            <span class="text-blue-100 text-sm font-medium">Wpis 8</span>
+          </li>
+          <li class="article-item glass-item rounded-lg p-3 cursor-pointer" data-id="9">
+            <span class="text-blue-100 text-sm font-medium">Wpis 9</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 glass-container rounded-2xl p-10">
+      <div class="relative">
+        <div id="contentArea" class="content-transition">
+          <h1 class="text-4xl font-bold mb-3 text-blue-50 text-glow">Liquid Glass Interface</h1>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            <span class="text-sm text-blue-300 font-medium">07-01-2024</span>
+          </div>
+          
+          <div class="space-y-5 text-blue-100/80 leading-relaxed text-[15px]">
+            <p>
+              This is a refined liquid glass interface that prioritizes elegance and subtlety. The design uses true glassmorphism principles with semi-transparent surfaces, backdrop blur effects, and careful attention to contrast and readability.
+            </p>
+            <p>
+              The color palette is intentionally restrained, using dark backgrounds with blue accents to create a sophisticated, modern aesthetic. Every interactive element responds to user input with smooth transitions that feel natural and refined.
+            </p>
+            <p>
+              The glass effect is achieved through layered transparency, blur filters, and subtle border highlights. This creates depth without relying on excessive shadows or heavy visual effects. The result is an interface that feels premium and contemporary.
+            </p>
+          </div>
+          
+          <div class="mt-10">
+            <div class="divider-line mb-6"></div>
+            <div class="flex gap-3 flex-wrap items-center">
+              <div class="tag-pill px-4 py-2 rounded-full text-sm text-blue-200 font-medium cursor-pointer">
+                Design
+              </div>
+              <div class="tag-pill px-4 py-2 rounded-full text-sm text-blue-200 font-medium cursor-pointer">
+                Interface
+              </div>
+              <div class="tag-pill px-4 py-2 rounded-full text-sm text-blue-200 font-medium cursor-pointer">
+                Glassmorphism
+              </div>
+              <button id="editBtn" class="glass-button px-4 py-2 rounded-lg text-blue-100 text-sm font-medium ml-auto">
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const articles = {
+      1: {
+        title: "Liquid Glass Interface",
+        date: "07-01-2024",
+        content: [
+          "This is a refined liquid glass interface that prioritizes elegance and subtlety. The design uses true glassmorphism principles with semi-transparent surfaces, backdrop blur effects, and careful attention to contrast and readability.",
+          "The color palette is intentionally restrained, using dark backgrounds with blue accents to create a sophisticated, modern aesthetic. Every interactive element responds to user input with smooth transitions that feel natural and refined.",
+          "The glass effect is achieved through layered transparency, blur filters, and subtle border highlights. This creates depth without relying on excessive shadows or heavy visual effects. The result is an interface that feels premium and contemporary."
+        ],
+        tags: ["Design", "Interface", "Glassmorphism"]
+      },
+      2: {
+        title: "Minimalist Design Philosophy",
+        date: "08-01-2024",
+        content: [
+          "Great design is invisible. It serves the content without drawing unnecessary attention to itself. This interface embodies that principle through careful restraint and purposeful simplicity.",
+          "Every element has been considered for its functional value. There are no superfluous decorations or distracting animations. The glass effect enhances usability by creating visual hierarchy and depth.",
+          "The dark color scheme reduces eye strain during extended use while maintaining excellent readability. Blue accents guide attention without overwhelming the senses."
+        ],
+        tags: ["Minimalism", "Philosophy", "UX"]
+      },
+      3: {
+        title: "The Art of Transparency",
+        date: "09-01-2024",
+        content: [
+          "Transparency in UI design is more than an aesthetic choice—it's a way to create visual connections between interface layers. When done correctly, it adds depth and sophistication.",
+          "The key is balance. Too much transparency creates confusion and reduces readability. Too little makes the interface feel flat and lifeless. Finding the right balance requires careful consideration of contrast ratios and backdrop blur intensity.",
+          "Modern browsers have made these effects performant and accessible. What once required complex workarounds can now be achieved with simple CSS properties."
+        ],
+        tags: ["Transparency", "Visual Design", "CSS"]
+      },
+      4: {
+        title: "Typography in Glass Interfaces",
+        date: "10-01-2024",
+        content: [
+          "Typography takes on special importance in glass interfaces. Text must remain crisp and legible against semi-transparent backgrounds, which presents unique challenges.",
+          "Font weight, letter spacing, and line height all need careful tuning. Lighter weights can disappear against certain backgrounds, while heavy weights may feel too aggressive.",
+          "The solution is to use medium weights with generous spacing and ensure sufficient contrast between text and background. Subtle text shadows can enhance readability without compromising the clean aesthetic."
+        ],
+        tags: ["Typography", "Readability", "Design"]
+      },
+      5: {
+        title: "Interactive Elements",
+        date: "11-01-2024",
+        content: [
+          "Interactive elements in a glass interface need clear affordances without breaking the visual harmony. Hover states, active states, and focus indicators must be obvious yet elegant.",
+          "Transitions should be smooth but not slow. A duration of 200-300ms feels responsive without being jarring. Easing functions create natural motion that mirrors physical materials.",
+          "Glass materials respond to interaction differently than solid surfaces. Increased brightness, enhanced borders, and subtle shadows signal interactivity while maintaining the transparent aesthetic."
+        ],
+        tags: ["Interaction", "UX", "Animation"]
+      },
+      6: {
+        title: "Color Theory and Glass",
+        date: "12-01-2024",
+        content: [
+          "Color in glass interfaces must be handled delicately. Saturated colors can look harsh against transparent backgrounds, while desaturated colors may appear washed out.",
+          "Blue is particularly well-suited for glass interfaces. It's calming, professional, and works well with dark backgrounds. The cool tone complements the ethereal quality of glass materials.",
+          "Accent colors should be used sparingly. They're most effective when reserved for important interactive elements or status indicators."
+        ],
+        tags: ["Color", "Theory", "Aesthetics"]
+      },
+      7: {
+        title: "Performance Considerations",
+        date: "13-01-2024",
+        content: [
+          "Backdrop blur and transparency effects can be resource-intensive. Modern browsers handle these well, but it's important to use them judiciously.",
+          "Limit the number of blurred elements on screen simultaneously. Layer glass effects strategically rather than applying them everywhere. This improves performance while maintaining visual impact.",
+          "Test on various devices and browsers. What looks perfect on a high-end desktop may struggle on older hardware. Graceful degradation ensures accessibility across platforms."
+        ],
+        tags: ["Performance", "Optimization", "Best Practices"]
+      },
+      8: {
+        title: "Accessibility in Modern Interfaces",
+        date: "14-01-2024",
+        content: [
+          "Beautiful design means nothing if it's not accessible. Glass interfaces must maintain WCAG contrast ratios, support keyboard navigation, and work with screen readers.",
+          "Dark backgrounds require careful contrast management. Text must be bright enough for comfortable reading while blur effects need sufficient opacity to maintain legibility.",
+          "Focus indicators are crucial. Users navigating by keyboard need clear visual feedback. In glass interfaces, this might mean enhanced borders or temporary opacity changes."
+        ],
+        tags: ["Accessibility", "Inclusion", "Standards"]
+      },
+      9: {
+        title: "The Future of Interface Design",
+        date: "15-01-2024",
+        content: [
+          "Glass interfaces represent a maturation of web design. They bridge the gap between skeuomorphism and flat design, taking the best aspects of both approaches.",
+          "As displays improve and browsers optimize rendering, these effects will become standard. The challenge is using them purposefully rather than as mere decoration.",
+          "The future belongs to interfaces that are both beautiful and functional, where aesthetic choices enhance rather than hinder usability. Glass design, when done right, achieves this balance."
+        ],
+        tags: ["Future", "Trends", "Innovation"]
+      }
+    };
+
+    let currentArticle = 1;
+    let editMode = false;
+    let nextId = 10;
+
+    function renderView(articleId) {
+      const article = articles[articleId];
+      const contentArea = document.getElementById('contentArea');
+      
+      contentArea.innerHTML = `
+        <h1 class="text-4xl font-bold mb-3 text-blue-50 text-glow">${article.title}</h1>
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+          <span class="text-sm text-blue-300 font-medium">${article.date}</span>
+        </div>
+        
+        <div class="space-y-5 text-blue-100/80 leading-relaxed text-[15px]">
+          ${article.content.map(p => `<p>${p}</p>`).join('')}
+        </div>
+        
+        <div class="mt-10">
+          <div class="divider-line mb-6"></div>
+          <div class="flex gap-3 flex-wrap items-center">
+            ${article.tags.map(tag => `
+              <div class="tag-pill px-4 py-2 rounded-full text-sm text-blue-200 font-medium cursor-pointer">
+                ${tag}
+              </div>
+            `).join('')}
+            <button onclick="showEditForm(${articleId})" class="glass-button px-4 py-2 rounded-lg text-blue-100 text-sm font-medium ml-auto">
+              Edit
+            </button>
+            <button onclick="deleteArticle(${articleId})" class="glass-button danger px-4 py-2 rounded-lg text-red-100 text-sm font-medium">
+              Delete
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function showEditForm(articleId) {
+      const article = articles[articleId];
+      const contentArea = document.getElementById('contentArea');
+      
+      contentArea.style.opacity = '0';
+      setTimeout(() => {
+        contentArea.innerHTML = `
+          <h1 class="text-3xl font-bold mb-8 text-blue-50 text-glow">Edit Article</h1>
+          
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Title</label>
+              <input type="text" id="editTitle" value="${article.title}" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Date</label>
+              <input type="text" id="editDate" value="${article.date}" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Content (separate paragraphs with new lines)</label>
+              <textarea id="editContent" rows="10" 
+                        class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">${article.content.join('\n\n')}</textarea>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Tags (comma separated)</label>
+              <input type="text" id="editTags" value="${article.tags.join(', ')}" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+          </div>
+          
+          <div class="mt-10">
+            <div class="divider-line mb-6"></div>
+            <div class="flex gap-4">
+              <button onclick="saveArticle(${articleId})" class="glass-button px-6 py-3 rounded-lg text-blue-100 font-medium">
+                Save Changes
+              </button>
+              <button onclick="cancelEdit(${articleId})" class="glass-button secondary px-6 py-3 rounded-lg text-blue-100 font-medium">
+                Cancel
+              </button>
+            </div>
+          </div>
+        `;
+        contentArea.classList.add('content-transition');
+        contentArea.style.opacity = '1';
+      }, 200);
+    }
+
+    function showAddForm() {
+      const contentArea = document.getElementById('contentArea');
+      
+      contentArea.style.opacity = '0';
+      setTimeout(() => {
+        contentArea.innerHTML = `
+          <h1 class="text-3xl font-bold mb-8 text-blue-50 text-glow">Add New Article</h1>
+          
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Title</label>
+              <input type="text" id="newTitle" placeholder="Enter article title" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Date</label>
+              <input type="text" id="newDate" placeholder="DD-MM-YYYY" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Content (separate paragraphs with new lines)</label>
+              <textarea id="newContent" rows="10" placeholder="Write your article content here..." 
+                        class="glass-input w-full px-4 py-3 rounded-lg text-[15px]"></textarea>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-blue-200 mb-2">Tags (comma separated)</label>
+              <input type="text" id="newTags" placeholder="Tag1, Tag2, Tag3" 
+                     class="glass-input w-full px-4 py-3 rounded-lg text-[15px]">
+            </div>
+          </div>
+          
+          <div class="mt-10">
+            <div class="divider-line mb-6"></div>
+            <div class="flex gap-4">
+              <button onclick="createArticle()" class="glass-button px-6 py-3 rounded-lg text-blue-100 font-medium">
+                Create Article
+              </button>
+              <button onclick="cancelAdd()" class="glass-button secondary px-6 py-3 rounded-lg text-blue-100 font-medium">
+                Cancel
+              </button>
+            </div>
+          </div>
+        `;
+        contentArea.classList.add('content-transition');
+        contentArea.style.opacity = '1';
+      }, 200);
+    }
+
+    function saveArticle(articleId) {
+      const title = document.getElementById('editTitle').value;
+      const date = document.getElementById('editDate').value;
+      const content = document.getElementById('editContent').value.split('\n\n').filter(p => p.trim());
+      const tags = document.getElementById('editTags').value.split(',').map(t => t.trim());
+      
+      articles[articleId] = { title, date, content, tags };
+      
+      // Update sidebar
+      const listItem = document.querySelector(`[data-id="${articleId}"]`);
+      listItem.querySelector('span').textContent = title;
+      
+      renderView(articleId);
+    }
+
+    function createArticle() {
+      const title = document.getElementById('newTitle').value;
+      const date = document.getElementById('newDate').value;
+      const content = document.getElementById('newContent').value.split('\n\n').filter(p => p.trim());
+      const tags = document.getElementById('newTags').value.split(',').map(t => t.trim());
+      
+      if (!title || !date || content.length === 0) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      articles[nextId] = { title, date, content, tags };
+      
+      // Add to sidebar
+      const listItem = document.createElement('li');
+      listItem.className = 'article-item glass-item rounded-lg p-3 cursor-pointer';
+      listItem.dataset.id = nextId;
+      listItem.innerHTML = `<span class="text-blue-100 text-sm font-medium">${title}</span>`;
+      listItem.addEventListener('click', () => selectArticle(nextId));
+      document.getElementById('articleList').appendChild(listItem);
+      
+      selectArticle(nextId);
+      nextId++;
+    }
+
+    function deleteArticle(articleId) {
+      if (!confirm('Are you sure you want to delete this article?')) return;
+      
+      delete articles[articleId];
+      document.querySelector(`[data-id="${articleId}"]`).remove();
+      
+      // Select first available article
+      const firstArticle = parseInt(Object.keys(articles)[0]);
+      selectArticle(firstArticle);
+    }
+
+    function cancelEdit(articleId) {
+      renderView(articleId);
+    }
+
+    function cancelAdd() {
+      renderView(currentArticle);
+    }
+
+    function selectArticle(articleId) {
+      currentArticle = articleId;
+      
+      document.querySelectorAll('.article-item').forEach(i => {
+        i.classList.remove('active');
+      });
+      
+      document.querySelector(`[data-id="${articleId}"]`).classList.add('active');
+      
+      const contentArea = document.getElementById('contentArea');
+      contentArea.style.opacity = '0';
+      
+      setTimeout(() => {
+        renderView(articleId);
+        contentArea.classList.add('content-transition');
+        contentArea.style.opacity = '1';
+      }, 200);
+    }
+
+    // Event listeners
+    document.getElementById('addNewBtn').addEventListener('click', showAddForm);
+    
+    document.querySelectorAll('.article-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const articleId = parseInt(this.dataset.id);
+        selectArticle(articleId);
+      });
+    });
+  </script>
+</body>
+</html>
