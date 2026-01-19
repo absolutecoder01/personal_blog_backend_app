@@ -1,8 +1,0 @@
-[{
-  "id": 3,
-  "title": "Tworzenie prostego bloga w Spring Boot",
-  "content": "W tym artykule pokazuję jak zacząć budować bloga w Spring Boot. Wyjaśniam strukturę projektu, warstwy MVC, tworzenie kontrolerów, widoków i przechowywanie danych w plikach JSON.",
-  "createdAt": "2026-01-03",
-  "updatedAt": "2026-01-03",
-  "author": "admin"
-}]

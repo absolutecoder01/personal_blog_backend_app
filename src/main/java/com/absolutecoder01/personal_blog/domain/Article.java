@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Article {
 
-    int id;
+    private UUID id;
     String title;
     String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -39,13 +40,14 @@ public class Article {
     }
 
     @PrePersist
-    protected void onCreate(){
+    public void onCreate(){
         LocalDate now = LocalDate.now();
         this.createdAt = now;
         this.updatedAt = now;
     }
+
     @PreUpdate
-    protected void onUpdate(){
+    public void onUpdate(){
         this.updatedAt = LocalDate.now();
     }
 }

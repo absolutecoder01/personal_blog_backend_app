@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a); }
+        .glass { background: rgba(255,255,255,.04); backdrop-filter: blur(18px); border:1px solid rgba(255,255,255,.08); }
+    </style>
+</head>
+<body class="text-blue-100">
+
+<div class="max-w-5xl mx-auto p-10 glass rounded-2xl mt-10">
+
+    <div class="flex justify-between mb-6">
+        <h1 class="text-3xl font-bold">Panel Admina</h1>
+        <div class="flex gap-3">
+            <a href="/homepage" class="bg-blue-500 px-4 py-2 rounded">User</a>
+            <a href="/logout" class="bg-red-500 px-4 py-2 rounded">Wyloguj</a>
+        </div>
+    </div>
+
+    <a href="/admin/new" class="bg-green-500 px-4 py-2 rounded mb-4 inline-block">➕ Nowy artykuł</a>
+
+    <div class="space-y-4 mt-6">
+        <div th:each="a : ${articles}" class="glass p-4 rounded flex justify-between">
+            <div>
+                <h3 th:text="${a.title}" class="font-semibold"></h3>
+                <p class="text-sm text-blue-300" th:text="${a.createdAt}"></p>
+            </div>
+            <div class="flex gap-3">
+                <a th:href="@{/admin/edit/{id}(id=${a.id})}" class="bg-yellow-500 px-3 py-1 rounded">Edytuj</a>
+                <form th:action="@{/admin/delete/{id}(id=${a.id})}" method="post">
+                    <button class="bg-red-500 px-3 py-1 rounded">Usuń</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

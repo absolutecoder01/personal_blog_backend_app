@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artykuł</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-blue-100">
+
+<div class="max-w-3xl mx-auto p-10 glass rounded-2xl mt-10">
+
+    <a href="/admin" class="text-blue-400">← Powrót</a>
+
+    <h1 th:text="${article.id == null ? 'Nowy artykuł' : 'Edytuj artykuł'}"
+        class="text-3xl font-bold mb-6"></h1>
+
+    <form th:object="${article}"
+          th:action="${article.id == null} ? @{/admin/new} : @{/admin/edit}"
+          method="post"
+          class="space-y-4">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <input th:field="*{title}" placeholder="Tytuł"
+               class="w-full p-3 rounded bg-slate-800 border border-slate-700"/>
+
+        <textarea th:field="*{content}" placeholder="Treść"
+                  class="w-full p-3 rounded bg-slate-800 border border-slate-700 h-40"></textarea>
+
+        <input th:field="*{author}" placeholder="Autor"
+               class="w-full p-3 rounded bg-slate-800 border border-slate-700"/>
+
+        <button class="bg-blue-500 px-6 py-2 rounded">Zapisz</button>
+    </form>
+
+</div>
+
+</body>
+</html>

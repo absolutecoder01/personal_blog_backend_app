@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${article.title}"></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="text-blue-100 bg-slate-900">
+
+<div class="max-w-4xl mx-auto p-10 glass rounded-2xl mt-10">
+
+    <a href="/homepage" class="text-blue-400">← Powrót</a>
+
+    <h1 class="text-4xl font-bold mt-4" th:text="${article.title}"></h1>
+    <p class="text-blue-300" th:text="${article.createdAt}"></p>
+    <p class="text-blue-400 mb-6" th:text="${article.author}"></p>
+
+    <div th:text="${article.content}" class="leading-relaxed"></div>
+
+</div>
+
+</body>
+</html>
