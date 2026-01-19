@@ -1,84 +1,69 @@
+# Personal Blog -- Spring Boot Glassmorphism Blog
 
-# Personal Blog
+Nowoczesna aplikacja blogowa z panelem admina, logowaniem oraz zapisem
+artykułów do plików JSON.\
+Projekt wykonany jako zadanie z roadmap.sh - **Personal Blog Project**.
 
-Personal Blog to prosty blog stworzony w **Spring Boot** z frontendem w **HTML + TailwindCSS**.  
-Blog posiada dwie sekcje:
+------------------------------------------------------------------------
 
-- **Guest Section** – dostępna dla wszystkich:
-    - Strona główna z listą artykułów
-    - Strona pojedynczego artykułu
-- **Admin Section** – dostępna tylko dla administratora:
-    - Dashboard do zarządzania artykułami
-    - Dodawanie nowych artykułów
-    - Edycja istniejących artykułów
-    - Usuwanie artykułów
+## Features
 
----
+- CRUD artykułów (Create, Read, Update, Delete)\
+- Logowanie administratora (Spring Security)\
+- Zapis danych do plików JSON\
+- Glassmorphism UI + TailwindCSS\
 
-## Funkcjonalności
+------------------------------------------------------------------------
 
-- Wyświetlanie listy artykułów
-- Wyświetlanie treści artykułów z datą publikacji
-- Formularze dodawania i edycji artykułów
-- Proste logowanie administratora (możliwość włączenia Spring Security później)
-- Zapis artykułów w plikach JSON w katalogu `articles/`
+## Tech Stack
 
----
+    - Backend    Java 21, Spring Boot, Spring Security
+    - Frontend   Thymeleaf, TailwindCSS
+    - Storage    JSON files
+    - Build      Maven
 
-## Struktura projektu
+------------------------------------------------------------------------
 
-```
-src/
-  main/
-    java/
-      com.example.blog/
-        controller/       # kontrolery dla guest i admin
-        service/          # logika biznesowa bloga
-        model/            # obiekty: Article, User
-        storage/          # zapis/odczyt plików JSON
-    resources/
-      templates/           # widoki HTML (Thymeleaf)
-        guest/
-        admin/
-      static/              # CSS, Tailwind, obrazy
-articles/                 # pliki JSON z artykułami
-```
+## ▶ Uruchomienie
 
----
-
-## Instalacja i uruchomienie
-
-1. Sklonuj repozytorium
-2. Zainstaluj JDK 17+ i Maven
-3. Uruchom projekt w IDE lub w terminalu:
-
-```bash
+``` bash
+git clone https://github.com/absolutecoder01/personal_blog_backend_app.git
+cd personal_blog_backend_app
 mvn spring-boot:run
 ```
 
-5. Otwórz przeglądarkę i przejdź na:
+### Adresy
+     Strona     URL
+    ----------- --------------------------------------
+    - Homepage   http://localhost:8080/homepage
+    - Admin      http://localhost:8080/admin
+    - Login      automatycznie przy wejściu do admina
 
-- `/` – strona główna bloga
-- `/article/{id}` – strona pojedynczego artykułu
-- `/admin` – panel administratora (wymaga logowania)
+### Dane logowania
 
----
+    login: admin
+    hasło: admin123
 
-## Technologie
+------------------------------------------------------------------------
 
-- Java 17+
-- Spring Boot 3+
-- Thymeleaf (templating HTML)
-- TailwindCSS (frontend)
-- JSON (przechowywanie artykułów)
+## Struktura
 
----
+    personal_blog_backend_app/
+     ├─ articles/          ← pliki JSON z artykułami
+     ├─ src/
+     ├─ pom.xml
 
-## Paleta kolorów bloga
+------------------------------------------------------------------------
 
-- **Primary Dark**: slate-900 (#213448)
-- **Primary**: slate-600 (#547792)
-- **Accent**: slate-300 (#94B4C1)
-- **Background**: stone-100 / stone-200 (#EAE0CF)
+## Podgląd
 
----
+Glassmorphism UI inspirowany nowoczesnymi dashboardami SaaS.
+
+------------------------------------------------------------------------
+
+## Autor
+
+**absolutecoder01**
+
+------------------------------------------------------------------------
+
