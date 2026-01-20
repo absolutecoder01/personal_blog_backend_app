@@ -1,4 +1,4 @@
-# Personal Blog -- Spring Boot Glassmorphism Blog
+# Personal Blog - Spring Boot Glassmorphism Blog
 
 Nowoczesna aplikacja blogowa z panelem admina, logowaniem oraz zapisem
 artykułów do plików JSON.\
