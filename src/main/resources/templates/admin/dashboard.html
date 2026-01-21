@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         body { background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a); }
         .glass { background: rgba(255,255,255,.04); backdrop-filter: blur(18px); border:1px solid rgba(255,255,255,.08); }
@@ -16,12 +17,12 @@
     <div class="flex justify-between mb-6">
         <h1 class="text-3xl font-bold">Panel Admina</h1>
         <div class="flex gap-3">
-            <a href="/homepage" class="bg-blue-500 px-4 py-2 rounded">User</a>
-            <a href="/logout" class="bg-red-500 px-4 py-2 rounded">Wyloguj</a>
+            <a href="/homepage" class="bg-blue-500 px-4 py-2 rounded">User &nbsp;<i class="fa-solid fa-user"></i></a>
+            <a href="/logout" class="bg-red-500 px-4 py-2 rounded">Wyloguj &nbsp;<i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
     </div>
 
-    <a href="/admin/new" class="bg-green-500 px-4 py-2 rounded mb-4 inline-block">➕ Nowy artykuł</a>
+    <a href="/admin/new" class="bg-green-500 px-4 py-2 rounded mb-4 inline-block">Nowy artykuł &nbsp;<i class="fa-solid fa-circle-plus"></i></a>
 
     <div class="space-y-4 mt-6">
         <div th:each="a : ${articles}" class="glass p-4 rounded flex justify-between">
@@ -30,9 +31,9 @@
                 <p class="text-sm text-blue-300" th:text="${a.createdAt}"></p>
             </div>
             <div class="flex gap-3">
-                <a th:href="@{/admin/edit/{id}(id=${a.id})}" class="bg-yellow-500 px-3 py-1 rounded">Edytuj</a>
+                <a th:href="@{/admin/edit/{id}(id=${a.id})}" class="bg-yellow-500 px-3 py-3 rounded">Edytuj &nbsp;<i class="fa-solid fa-pen-to-square"></i></a>
                 <form th:action="@{/admin/delete/{id}(id=${a.id})}" method="post">
-                    <button class="bg-red-500 px-3 py-1 rounded">Usuń</button>
+                    <button class="bg-red-500 px-3 py-3 rounded">Usuń &nbsp;<i class="fa-solid fa-circle-minus"></i></button>
                 </form>
             </div>
         </div>
